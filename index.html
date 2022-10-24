@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src = "https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<script src = "app.js" defer></script>
+	<link rel="stylesheet" href="style.css">
+	<title>Document</title>
+</head>
+<body>
+	<div id="app">
+		<div id="container">
+			<div id="left">
+				<label for="q">How many questions are there?</label>
+				<input type="text" id="q" v-model="nq" placeholder="No. of questions">
+				<label for="time">How much time do you want to spend per question?</label>
+				<input type="text" id="time" v-model="duration" placeholder="Time in minutes">
+				<button @click="setTime">Set Timer</button>
+				<button @click="startTimer">Start</button>
+				<button @click="reset">Reset</button>
+			</div>
+			<div id="right">
+				<div id="master-bar" v-if="countdown" :style="{width: masterWidth + '%', transitionDuration: (duration * nq * 60_000) + 'ms'}"></div>
+				<div id="right-body">
+					<div id="status">	
+						<div id="right-status">
+							<p id="current" v-if="started">{{current.next}}/{{nq}}</p>
+							<p id="current" v-else>-/{{nq}}</p>
+							<button v-if="started" @click="markComplete">Complete</button>
+						</div>
+						<p id="elapsed" v-if="started||countdown">{{min}}:{{sec}}</p>
+						<p id="elapsed" v-else="">00:00</p>
+					</div>
+					<div id="box-container">
+						<div :class="{comp: question.complete}" class="box" v-for="question in questions">{{question.next}}</div>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <a href="https://youtu.be/Q_fLx2KcoYA?t=868">tutorial</a> -->
+</body>
+</html>
