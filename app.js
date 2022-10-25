@@ -17,7 +17,28 @@ const app = new Vue({
 		completed: 0,
 		results: false,
 	},
+	created() {
+		window.addEventListener('keypress', this.doCommand);
+	},
+	destroyed() {
+		window.removeEventListener('keypress', this.doCommand);
+	},
 	methods: {
+		doCommand(e) {
+			let cmd = String.fromCharCode(e.keyCode).toLowerCase();
+			if (cmd == " ") {
+				this.markComplete();
+			}
+			if (cmd == "s") {
+				this.startTimer();
+			}
+			if (cmd == "r") {
+				this.reset();
+			}
+			if (cmd == "t") {
+				this.setTime();
+			}
+		},
 		setTime() {
 			if (this.duration && this.nq) {
 				this.countdown = Math.floor(this.nq * this.duration * 60)

@@ -17,9 +17,9 @@
 				<input type="text" id="q" v-model="nq" placeholder="No. of questions">
 				<label for="time">How much time do you want to spend per question?</label>
 				<input type="text" id="time" v-model="duration" placeholder="Time in minutes">
-				<button @click="setTime">Set Timer</button>
-				<button @click="startTimer">Start</button>
-				<button @click="reset">Reset</button>
+				<button @click="setTime">Set Timer [T]</button>
+				<button @click="startTimer">Start [S]</button>
+				<button @click="reset">Reset [R]</button>
 			</div>
 			<div id="right">
 				<div id="right-body">
@@ -51,8 +51,32 @@
 						<p>Missed: {{nq - completed}}</p>
 						<button @click="reset">Reset</button>
 					</div>
-					<button v-else-if="started" @click="markComplete">Complete</button>
-					<p v-if="!countdown && !started">1. Enter no. of questions (integer) and time (minutes) reqd. (integer or decimal) for each question.<br>2. Click on "Set Timer"<br>3. Click on "Start".<br>4. Mark questions with the "Complete" button.<br>5. Reset with the "Reset" button. Reset once after timer runs out or if you want to start over again.</p>
+					<button v-else-if="started" @click="markComplete">Complete [Space]</button>
+					<div id="help" v-if="!countdown && !started">
+						<p>1. Enter no. of questions (integer) and time (minutes) reqd. (integer or decimal) for each question.<br>2. Click on "Set Timer"<br>3. Click on "Start".<br>4. Mark questions with the "Complete" button.<br>5. Reset with the "Reset" button. Reset once after timer runs out or if you want to start over again.</p>
+						<hr>
+						<p>Keyboard Shortcuts:</p>
+						<table>
+							<tr>
+								<td>T</td>
+								<td>Set Timer</td>
+							</tr>
+							<tr>
+								<td>S</td>
+								<td>Start Timer</td>
+							</tr>
+							<tr>
+								<td>R</td>
+								<td>Reset Timer</td>
+							</tr>
+							<tr>
+								<td>Space</td>
+								<td>Mark Complete</td>
+							</tr>
+						</table>
+					</div>
+					
+					<div id="tag">Made by <a href="https://github.com/lhondikoi">Laxminandan</a> | <a href="https://github.com/lhondikoi/task-timer">(repo)</a></div>
 				</div>
 			</div>
 		</div>
