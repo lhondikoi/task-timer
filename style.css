@@ -62,7 +62,7 @@ input {
 
 #master-bar {
     height: 20px;
-    background: darkgoldenrod;
+    background: blue;
     animation-name: progress;
     animation-timing-function: linear;
 }
