@@ -9,6 +9,20 @@
 button {
     height: 40px;
     padding: 10px;
+    border: none;
+    box-sizing: border-box;
+    background: blue;
+    color: white;
+    font-weight: 600;
+    line-height: 0;
+}
+
+input {
+    padding: 5px;
+}
+
+.idle {
+    color: #666;
 }
 
 #container {
@@ -29,6 +43,9 @@ button {
 #right {
     background: white;
     position: relative;
+}
+
+#right-body {
     padding: 5px;
 }
 
@@ -47,7 +64,6 @@ button {
 
 #elapsed {
     font-weight: 600;
-    color: #666;
 }
 
 #right-body {

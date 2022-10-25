@@ -21,16 +21,16 @@
 				<button @click="reset">Reset</button>
 			</div>
 			<div id="right">
-				<div id="master-bar" v-if="countdown" :style="{width: masterWidth + '%', transitionDuration: (duration * nq * 60_000) + 'ms'}"></div>
+				<div id="master-bar" v-if="countdown" :style="{width: masterWidth + '%', transitionDuration: (duration * 60_000) + 'ms'}"></div>
 				<div id="right-body">
 					<div id="status">	
 						<div id="right-status">
-							<p id="current" v-if="started">{{current.next}}/{{nq}}</p>
-							<p id="current" v-else>-/{{nq}}</p>
+							<p :class="{idle: !started}" id="current" v-if="started">{{current.next}}/{{nq}}</p>
+							<p :class="{idle: !started}" id="current" v-else>-/-</p>
 							<button v-if="started" @click="markComplete">Complete</button>
 						</div>
-						<p id="elapsed" v-if="started||countdown">{{min}}:{{sec}}</p>
-						<p id="elapsed" v-else="">00:00</p>
+						<p :class="{idle: !started, elapsed: true}" v-if="started||countdown">{{min}}:{{sec}}</p>
+						<p :class="{idle: !started, elapsed: true}" v-else="">00:00</p>
 					</div>
 					<div id="box-container">
 						<div :class="{comp: question.complete}" class="box" v-for="question in questions">{{question.next}}</div>
@@ -39,6 +39,5 @@
 			</div>
 		</div>
 	</div>
-	<!-- <a href="https://youtu.be/Q_fLx2KcoYA?t=868">tutorial</a> -->
 </body>
 </html>

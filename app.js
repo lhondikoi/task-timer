@@ -74,6 +74,7 @@ const app = new Vue({
 		},
 		markComplete() {
 			if (this.current && this.started) {
+				clearTimeout(this.current.timer);
 				this.current.complete = true;
 				if (this.current.next == this.nq) {
 					this.showResults();
@@ -94,15 +95,20 @@ const app = new Vue({
 				this.sec = null;
 			}
 		},
-		current() {
-			if (this.started && this.current) {
+		current(nv) {
+			if (this.current) {
+				console.log(this.current.next)
+			} else {
+				console.log(this.current)
+			}
+			if (this.current) {
 				this.current.timer = setTimeout(()=>{
-					if (this.current.next == this.nq) {
-						clearTimeout(this.current.timer);
-					}
 					this.current = this.questions[this.current.next];
 					this.missedSound.play()
 				}, Math.floor(this.duration * 60 * 1000))
+				if (this.current.next == this.nq) {
+					clearTimeout(this.current.timer);
+				}
 			}
 		}
 	},
