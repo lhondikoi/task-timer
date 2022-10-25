@@ -40,7 +40,7 @@ const app = new Vue({
 			}
 		},
 		setTime() {
-			if (this.duration && this.nq) {
+			if (this.duration && this.nq && !this.started) {
 				this.countdown = Math.floor(this.nq * this.duration * 60)
 				this.questions = [];
 				for (let i=0; i<this.nq; i++) {
