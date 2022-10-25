@@ -12,6 +12,7 @@
 	<div id="app">
 		<div id="container">
 			<div id="left">
+				<h1>StudyTimer</h1>
 				<label for="q">How many questions are there?</label>
 				<input type="text" id="q" v-model="nq" placeholder="No. of questions">
 				<label for="time">How much time do you want to spend per question?</label>
@@ -51,6 +52,7 @@
 						<button @click="reset">Reset</button>
 					</div>
 					<button v-else-if="started" @click="markComplete">Complete</button>
+					<p v-if="!countdown && !started">1. Enter no. of questions (integer) and time (minutes) reqd. (integer or decimal) for each question.<br>2. Click on "Set Timer"<br>3. Click on "Start".<br>4. Mark questions with the "Complete" button.<br>5. Reset with the "Reset" button. Reset once after timer runs out or if you want to start over again.</p>
 				</div>
 			</div>
 		</div>

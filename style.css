@@ -36,8 +36,8 @@ input {
     background: #eee;
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    padding: 5px;
+    gap: 10px;
+    padding: 10px;
 }
 
 #right {
