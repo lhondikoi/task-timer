@@ -53,9 +53,10 @@
 					</div>
 					<button v-else-if="started" @click="markComplete">Complete [Space]</button>
 					<div id="help" v-if="!countdown && !started">
+						<h3>Instructions:</h3>
 						<p>1. Enter no. of questions (integer) and time (minutes) reqd. (integer or decimal) for each question.<br>2. Click on "Set Timer"<br>3. Click on "Start".<br>4. Mark questions with the "Complete" button.<br>5. Reset with the "Reset" button. Reset once after timer runs out or if you want to start over again.</p>
 						<hr>
-						<p>Keyboard Shortcuts:</p>
+						<h3>Keyboard Shortcuts:</h3>
 						<table>
 							<tr>
 								<td>T</td>
@@ -75,8 +76,7 @@
 							</tr>
 						</table>
 					</div>
-					
-					<div id="tag">Made by <a href="https://github.com/lhondikoi">Laxminandan</a> | <a href="https://github.com/lhondikoi/task-timer">(repo)</a></div>
+					<div id="tag">Made by <a href="https://github.com/lhondikoi"><i>@lhondikoi</i></a> | <a href="https://github.com/lhondikoi/task-timer">(repo)</a></div>
 				</div>
 			</div>
 		</div>
