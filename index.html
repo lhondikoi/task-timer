@@ -21,20 +21,36 @@
 				<button @click="reset">Reset</button>
 			</div>
 			<div id="right">
-				<div id="master-bar" v-if="countdown" :style="{width: masterWidth + '%', transitionDuration: (duration * 60_000) + 'ms'}"></div>
 				<div id="right-body">
 					<div id="status">	
-						<div id="right-status">
-							<p :class="{idle: !started}" id="current" v-if="started">{{current.next}}/{{nq}}</p>
-							<p :class="{idle: !started}" id="current" v-else>-/-</p>
-							<button v-if="started" @click="markComplete">Complete</button>
+						<div class="status-child">
+							<p>Current question:</p>
+							<div id="current-question">
+								<p :class="{idle: !started, big: true}" id="current" v-if="started">{{current.next}}/{{nq}}</p>
+								<p :class="{idle: !started, big: true}" id="current" v-else>-/-</p>
+							</div>
 						</div>
-						<p :class="{idle: !started, elapsed: true}" v-if="started||countdown">{{min}}:{{sec}}</p>
-						<p :class="{idle: !started, elapsed: true}" v-else="">00:00</p>
+						<div class="status-child">
+							<p>Time left:</p>
+							<div>
+								<p :class="{idle: !started, big: true}" v-if="started||countdown">{{min}}:{{sec}}</p>
+								<p :class="{idle: !started, big: true}" v-else="">00:00</p>
+							</div>
+						</div>
 					</div>
+					<div id="master-bar" v-if="started" :style="{animationDuration: (duration * nq * 60_000) + 'ms', animationIterationCount: 1}"></div>
 					<div id="box-container">
-						<div :class="{comp: question.complete}" class="box" v-for="question in questions">{{question.next}}</div>
+						<div class="box" v-for="question in questions">
+							<div :class="{progress: true, active: question.active, comp: question.complete}" :style="{transitionDuration: duration * 60_000 + 'ms'}"></div>
+							<p :class="{compcolor: question.complete}">{{question.next}}</p>
+						</div>
 					</div>	
+					<div id="results-pane" v-if="results">
+						<p>Completed: {{completed}}</p>
+						<p>Missed: {{nq - completed}}</p>
+						<button @click="reset">Reset</button>
+					</div>
+					<button v-else-if="started" @click="markComplete">Complete</button>
 				</div>
 			</div>
 		</div>

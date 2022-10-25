@@ -10,10 +10,12 @@ const app = new Vue({
 		current: null,
 		masterWidth: 0,
 		startSound: new Audio('./sounds/ping-82822.mp3'),
-		completeSound: new Audio('./sounds/ui-click-97915.mp3'),
+		completeSound: new Audio('./sounds/ui-click-43196.mp3'),
 		resultSound: new Audio('./sounds/beep-6-96243.mp3'),
-		missedSound: new Audio('./sounds/ui-click-43196.mp3'),
+		missedSound: new Audio('./sounds/ui-click-97915.mp3'),
 		started: false,
+		completed: 0,
+		results: false,
 	},
 	methods: {
 		setTime() {
@@ -24,13 +26,14 @@ const app = new Vue({
 					this.questions.push({
 						next: i+1,
 						complete: false,
-						timer: null
+						timer: null,
+						active: false
 					})
 				}
 			}
 		},
 		startTimer() {
-			if (this.countdown) {
+			if (!this.started) {
 				this.startSound.play();
 				// start master timer 
 				if (this.countdown != null) {
@@ -46,6 +49,7 @@ const app = new Vue({
 				// set started flag
 				this.started = true;
 				this.current = this.questions[0];
+				this.current.active = true;
 			}
 		},
 		reset() {
@@ -59,28 +63,29 @@ const app = new Vue({
 				this.questions = [];
 				this.master = null;
 				this.masterWidth = 0;
+				this.results = false;
+				this.completed = 0;
 		},
 		showResults() {
 				this.resultSound.play();
 				clearInterval(this.master);
+				this.results = true
 				this.started = false;
-				this.countdown = null;
-				this.nq = null;
-				this.duration = null;
 				this.current = null;
 				this.master = null;
-				this.iterator = null;
 				this.masterWidth = 0;
 		},
 		markComplete() {
 			if (this.current && this.started) {
 				clearTimeout(this.current.timer);
 				this.current.complete = true;
+				this.completed++;
 				if (this.current.next == this.nq) {
 					this.showResults();
 				} else {
 					this.completeSound.play();
-					this.current = this.questions[this.current.next]
+					this.current = this.questions[this.current.next];
+					this.current.active = true;
 				}
 			}
 		}
@@ -97,13 +102,9 @@ const app = new Vue({
 		},
 		current(nv) {
 			if (this.current) {
-				console.log(this.current.next)
-			} else {
-				console.log(this.current)
-			}
-			if (this.current) {
 				this.current.timer = setTimeout(()=>{
 					this.current = this.questions[this.current.next];
+					this.current.active = true;
 					this.missedSound.play()
 				}, Math.floor(this.duration * 60 * 1000))
 				if (this.current.next == this.nq) {
