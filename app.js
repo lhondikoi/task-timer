@@ -48,9 +48,14 @@ const app = new Vue({
 						next: i+1,
 						complete: false,
 						timer: null,
-						active: false
+						active: false,
+						start: null,
+						end: null,
+						duration: null,
 					})
 				}
+				// initialize current marker
+				this.current = this.questions[0];
 			}
 		},
 		startTimer() {
@@ -69,8 +74,9 @@ const app = new Vue({
 				this.masterWidth = 100;
 				// set started flag
 				this.started = true;
-				this.current = this.questions[0];
+				// set current to active
 				this.current.active = true;
+				this.current.start = new Date()
 			}
 		},
 		reset() {
@@ -98,6 +104,8 @@ const app = new Vue({
 		},
 		markComplete() {
 			if (this.current && this.started) {
+				this.current.end = new Date()
+				this.current.duration = this.current.end - this.current.start;
 				clearTimeout(this.current.timer);
 				this.current.complete = true;
 				this.completed++;
@@ -107,6 +115,7 @@ const app = new Vue({
 					this.completeSound.play();
 					this.current = this.questions[this.current.next];
 					this.current.active = true;
+					this.current.start = new Date();
 				}
 			}
 		}
@@ -121,11 +130,12 @@ const app = new Vue({
 				this.sec = null;
 			}
 		},
-		current(nv) {
-			if (this.current) {
+		current() {
+			if (this.current && this.current.active) {
 				this.current.timer = setTimeout(()=>{
 					this.current = this.questions[this.current.next];
 					this.current.active = true;
+					this.current.start = new Date()
 					this.missedSound.play()
 				}, Math.floor(this.duration * 60 * 1000))
 				if (this.current.next == this.nq) {

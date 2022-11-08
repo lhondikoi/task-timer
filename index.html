@@ -42,13 +42,16 @@
 					<div id="master-bar" v-if="started" :style="{animationDuration: (duration * nq * 60_000) + 'ms', animationIterationCount: 1}"></div>
 					<div id="box-container">
 						<div class="box" v-for="question in questions">
-							<div :class="{progress: true, active: question.active, comp: question.complete}" :style="{transitionDuration: duration * 60_000 + 'ms'}"></div>
+							<div :style="{transitionDuration: duration * 60_000 + 'ms'}" class="progress" :class="{active: question.active, comp: question.complete}"></div>
 							<p :class="{compcolor: question.complete}">{{question.next}}</p>
 						</div>
 					</div>	
 					<div id="results-pane" v-if="results">
 						<p>Completed: {{completed}}</p>
 						<p>Missed: {{nq - completed}}</p>
+						<div v-for="question in questions">
+							<p>{{question.next}} took you {{ Math.floor(question.duration / 1000) }} seconds to finish.</p>
+						</div>
 						<button @click="reset">Reset</button>
 					</div>
 					<button v-else-if="started" @click="markComplete">Complete [Space]</button>

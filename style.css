@@ -118,12 +118,12 @@ input {
     height: 100%;
     width: 0%;
     position: absolute;
-    transition: width linear;
+    background: orange;
 }
 
 .active {
+    transition: width linear;
     width: 100%;
-    background: orange;
 }
 
 .comp {
@@ -139,7 +139,7 @@ input {
     margin-top: 50px;
     display: grid;
     place-items: center;
-    font-size: 3em;
+    /* font-size: 3em; */
 }
 
 #help {
